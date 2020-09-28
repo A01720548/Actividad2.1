@@ -1,6 +1,6 @@
 /**
  * @file LinkedList.h
- * @author Esteban de la Maza (A01720548@itesm.com)
+ * @author Esteban de la Maza , Ricardo Jasso , Raul Jerlach
  * @brief Linked List class for data structures class
  * @version 0.1
  * @date 2020-09-24
@@ -31,7 +31,7 @@ public:
 
 /**
  * @brief Construct a new Linked List:: Linked List object
- * 
+ * Complexity: O(1)
  */
 LinkedList::LinkedList()
 {
@@ -42,12 +42,19 @@ LinkedList::LinkedList()
 /**
  * @brief Get the Size of the list
  * 
- * @return int 
+ * @return the size of the list
+ * Complexity: O(1) 
  */
 int LinkedList:: getSize() {
     return size;
 }
 
+/**
+ * @brief Adds new node at start of list
+ * 
+ * @param datum Value of content in new node
+ * Complexity: O(1)
+ */
 void LinkedList:: push(int datum) {
     Node *pnewboy = new Node(datum);
     pnewboy->nextboy = head;
@@ -58,7 +65,8 @@ void LinkedList:: push(int datum) {
 /**
  * @brief Adds a new Node to the end of the list
  * 
- * @param datum 
+ * @param datum Value of content of new node
+ * Complexity: O(n)
  */
 void LinkedList::append(int datum) 
 {
@@ -77,18 +85,25 @@ void LinkedList::append(int datum)
     size++;
 }
 
-int LinkedList ::read(int datum)
+/**
+ * @brief Returns value in position entered
+ * 
+ * @param pos Position that user wants to read
+ * 
+ * @return the value kept in that node, -1 if that position is not in the list
+ * Complexity: O(n)
+ */
+int LinkedList:: read(int pos)
 {
-    Node *pnewboy = new Node(datum);
     Node *pcurrentboy;
     pcurrentboy = head;
     int cont = 0;
 
     int retval = -1;
 
-    if (head == nullptr && pcurrentboy->content == datum)
+    if (pos == 0)
     {
-        retval = cont;
+        retval = pcurrentboy->content;
         return retval;
     }
     else
@@ -97,47 +112,69 @@ int LinkedList ::read(int datum)
         {
             pcurrentboy = pcurrentboy->nextboy;
             cont++;
-            if (pcurrentboy->content == pnewboy->content)
+            if (pos == cont)
             {
-                retval = cont;
+                retval = pcurrentboy->content;
                 return retval;
             }
         }
 
     }
+    return retval;
 }
 
-void LinkedList ::update(int oldValue, int newValue)
+/**
+ * @brief Updates Node's values
+ * 
+ * @param pos Position of node that is going to change
+ * @param newValue New value of nodes content
+ * Complexity: O(n)
+ */
+void LinkedList ::update(int pos, int newValue)
 {
-    Node *pnewboy = new Node(oldValue);
     Node *pcurrentboy;
     pcurrentboy = head;
+    int cont = 0;
 
-    while (pcurrentboy->nextboy != nullptr)
+    if (pos == 0)
     {
-        pcurrentboy = pcurrentboy->nextboy;
-        if (pcurrentboy->content == pnewboy->content)
+        pcurrentboy->content = newValue;
+    }else {
+        while (pcurrentboy->nextboy != nullptr)
         {
-            pcurrentboy->content = newValue;
+            cont++;
+            pcurrentboy = pcurrentboy->nextboy;
+            if (cont == pos)
+            {
+                pcurrentboy->content = newValue;
+            }
         }
     }
 }
 
-void LinkedList ::del(int datum) {
-    Node *pnewboy = new Node(datum);
+/**
+ * @brief Deletes Node from the list
+ * 
+ * @param pos Position of Node that will be deleted 
+ * Complexity: O(n)
+ */
+void LinkedList ::del(int pos) {
     Node *pcurrentboy;
     Node *previousboy;
     pcurrentboy = head;
 
-    if (head == nullptr)
+    int cont = 0;
+
+    if (pos == 0)
     {
         pcurrentboy->~Node();
     }else {
         while (pcurrentboy->nextboy != nullptr)
         {
+            cont++;
             previousboy = pcurrentboy;
             pcurrentboy = pcurrentboy->nextboy;
-            if (pcurrentboy->content == pnewboy->content)
+            if (cont == pos)
             {
                 previousboy->nextboy = pcurrentboy->nextboy;
                 pcurrentboy->~Node();
@@ -147,6 +184,11 @@ void LinkedList ::del(int datum) {
     size--;
 }
 
+/**
+ * @brief Prints Nodes
+ * Complexity: O(n)
+ * 
+ */
 void LinkedList:: print() {
     Node *pcurrentboy;
     pcurrentboy = head;
@@ -156,6 +198,6 @@ void LinkedList:: print() {
             std::cout << pcurrentboy->content << std::endl;
             pcurrentboy = pcurrentboy->nextboy;
         }
-    
+    std::cout << pcurrentboy->content << std::endl;
     
 }

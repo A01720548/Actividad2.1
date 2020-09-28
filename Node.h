@@ -1,6 +1,6 @@
 /**
  * @file Node.h
- * @author Esteban de la Maza (A01720548@itesm.com)
+ * @author Esteban de la Maza , Ricardo Jasso , Raul Jerlach
  * @brief Node class for data structures class
  * @version 0.1
  * @date 2020-09-24
@@ -30,9 +30,12 @@ Node::Node(int datum) {
 
 }
 
+/**
+ * @brief Construct a new Node:: Node object, default without parameters
+ * 
+ */
 Node::~Node() 
 {
     content = NULL;
     nextboy = nullptr;
 }
-

@@ -9,13 +9,19 @@ int main() {
 
     myList.append(23);
     myList.append(12);
-    //std::cout << myList.getSize() << std::endl;
-    //myList.print();
+    myList.print();
 
-    std::cout << myList.read(23);
-    myList.del(42);
-    //std::cout << myList.getSize() << std::endl;
-    //myList.print();
+    myList.update(1,20);
+    myList.print();
+
+    myList.del(1);
+    myList.print();
+
+    std::cout << "Size of List: " << myList.getSize() << std::endl;
+
+
+    std::cout << myList.read(1);
+    
 
     return 0;
 }
